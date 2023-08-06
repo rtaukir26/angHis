@@ -1,0 +1,98 @@
+.main_header_div {
+  padding: 15px;
+  max-height: 60px;
+  min-height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-image: $header-bg-color;
+  transition: 0.3s all ease;
+  .left_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+      img {
+        width: 50px;
+      }
+      &.brand_name {
+        margin-left: 10px;
+        font-size: 22px;
+      }
+    }
+  }
+  .right_header {
+    color: white;
+    ul {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style-type: none;
+      li {
+        font-size: 20px;
+        margin-right: 15px;
+        .toggle_div {
+          cursor: pointer;
+          background-image: $toggle-bg;
+          height: 30px;
+          width: 80px;
+          border-radius: 20px;
+          position: relative;
+          box-shadow: 0px 0px 10px 4px #7760a1;
+          .toggle_ball {
+            // background-image: url("../../assets/images/sun.png");
+            background-image: $bg-image;
+            background-repeat: no-repeat;
+            background-position: center;
+            object-fit: cover;
+            height: 26px;
+            position: absolute;
+            width: 26px;
+            // background: #fbff52;
+            border-radius: 50%;
+            left: 5px;
+            top: 2px;
+            box-shadow: 0 0 9px rgba(126, 107, 68, 0.867);
+            &.dark_view {
+              transform: translateX(0px);
+              transform: rotate(190deg);
+              transition: 0.9s all ease;
+              box-shadow: 0px 0px 10px 1px rgb(67 72 71 / 87%);
+              // animation: rotate_moon 4s linear;
+              // @keyframes rotate_moon {
+              //   from {
+              //     // transform: scale(0.8,0.8);
+              //     transform: rotate(0deg);
+              //   }
+              //   to {
+              //     transform: rotate(360deg);
+              //     // transform: scale(1,1);
+              //   }
+              // }
+            }
+
+            &.light_view {
+              transform: translateX(45px);
+              transition: 0.9s all ease;
+              box-shadow: 0px 0px 5px 1px rgb(93 195 173 / 87%);
+              // animation: rotate_sun 4s linear;
+              // @keyframes rotate_sun {
+              //   from {
+              //     // transform: scale(0.8,0.8);
+              //     transform: rotate(0deg);
+              //   }
+              //   to {
+              //     transform: rotate(360deg);
+              //     // transform: scale(1,1);
+              //   }
+              // }
+            }
+          }
+        }
+        .user_icon_li {
+          width: 30px;
+        }
+      }
+    }
+  }
+}
