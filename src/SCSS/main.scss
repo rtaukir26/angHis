@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+@import "./common.scss";
+.dark-theme {
+   @import "./dark-theme-files.scss";
+}
+
+.light-theme {
+   @import "./light-theme-files.scss";
+}

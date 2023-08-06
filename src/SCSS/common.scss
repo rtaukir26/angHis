@@ -1,0 +1,10 @@
+
+body{
+    background-color: aliceblue;
+    // background-image: linear-gradient(170deg, #f7f7f7, #ffe5e5);
+    transition: 0.3s all ease;
+    &.dark-theme{
+        background-color: rgb(39, 37, 37);
+    }
+}
+
