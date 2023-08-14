@@ -8,7 +8,8 @@ import DiwaliIcon1 from "../../assets/images/diwali1.avif";
 import DiwaliIcon2 from "../../assets/images/diwali2.avif";
 import DiwaliIcon3 from "../../assets/images/diwal3.avif";
 import DiwaliIcon4 from "../../assets/images/diwali4.avif";
-import DiwaliIcon5 from "../../assets/images/diwali5.avif";
+// import SessionLog from "../../../src/SessionLog";
+// import DiwaliIcon5 from "../../assets/images/diwali5.avif";
 export const bannerEidImg = [
   { imgName: EidIcon1 },
   { imgName: EidIcon2 },
@@ -128,11 +129,7 @@ const Home = () => {
             <div className="right_body_div">
               <div className="upload_div">
                 <div>
-                  {/* <input
-                    className="custom-file-input"
-                    type="file"
-                    onChange={handleChangeFile}
-                  /> */}
+            
                   <input
                     type="file"
                     onChange={handleChangeFile}
@@ -181,6 +178,10 @@ const Home = () => {
                     ))}
                   </div>
                 ) : null} */}
+
+                {/* <SessionLog/> */}
+
+
               </div>
             </div>
           </div>
