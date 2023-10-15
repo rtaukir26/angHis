@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components"; //psuedo class "before",content will be dynamic
 import Header from "../Header/Header";
 import EidIcon1 from "../../assets/images/eid1.avif";
 import EidIcon2 from "../../assets/images/eid2.avif";
@@ -8,6 +9,11 @@ import DiwaliIcon1 from "../../assets/images/diwali1.avif";
 import DiwaliIcon2 from "../../assets/images/diwali2.avif";
 import DiwaliIcon3 from "../../assets/images/diwal3.avif";
 import DiwaliIcon4 from "../../assets/images/diwali4.avif";
+import likeIcon from "../../assets/images/like2.png";
+import disLikeIcon from "../../assets/images/dislike.png";
+import heartIcon from "../../assets/images/heart.png";
+import sendIcon from "../../assets/images/sendIcon.png";
+
 // import SessionLog from "../../../src/SessionLog";
 // import DiwaliIcon5 from "../../assets/images/diwali5.avif";
 export const bannerEidImg = [
@@ -21,7 +27,6 @@ export const bannerDiwaliImg = [
   { imgName: DiwaliIcon2 },
   { imgName: DiwaliIcon3 },
   { imgName: DiwaliIcon4 },
-  // { imgName: DiwaliIcon5 },
 ];
 const Home = () => {
   const [image, setImage] = useState([]);
@@ -29,6 +34,10 @@ const Home = () => {
   // const [source, setSource] = useState({ videoUrl: [], imgUrl: [] });
   const [source, setSource] = useState([]);
   const [imgUrl, setImgUrl] = useState([]);
+  const [inputTextarea, setInputTextarea] = useState("");
+  const [postData, setPostData] = useState(null);
+  console.log("dd imgUrl", imgUrl);
+
   //imges changes dynamacally, loader
   const callAfterdelay = (i) => {
     setTimeout(() => {
@@ -56,7 +65,7 @@ const Home = () => {
   useEffect(() => {
     callAfterdelay();
   }, []);
-  console.log("dd source", source);
+
   //file uplaod
   const handleChangeFile = (e) => {
     let files = e.target.files[0];
@@ -78,6 +87,11 @@ const Home = () => {
     // */
     // };
   };
+
+  //hanlde change trexarea
+  const hanldeChangeTrexarea = (e) => {
+    setInputTextarea(e.target.value);
+  };
   //video upalod
   const handleVideoChange = (event) => {
     const file = event.target.files[0];
@@ -85,6 +99,12 @@ const Home = () => {
     // setSource((pre) => [...pre, [...videoUrl, url]]);
     setSource((pre) => [...pre, url]);
   };
+
+  //handle click post files
+  const handleClick_postFiles = () => {
+    setPostData({ comments: inputTextarea, imgUrl: imgUrl });
+  };
+  console.log("dd postdata", postData);
 
   return (
     <section className="super_main_sec">
@@ -126,10 +146,11 @@ const Home = () => {
               <div className="banner1">2</div>
               <div className="banner1">3</div>
             </div>
+
             <div className="right_body_div">
+              {/* ===uplaod image/video=== */}
               <div className="upload_div">
-                <div>
-            
+                <div className="uplaod_image_div">
                   <input
                     type="file"
                     onChange={handleChangeFile}
@@ -137,52 +158,76 @@ const Home = () => {
                     name="file-input"
                   />
 
-                  <label id="file-input-label" for="file-input">
+                  <label id="file-input-label" htmlFor="file-input">
                     Select an Image
                   </label>
-                  {/* {imgUrl && <img src={imgUrl} alt="img" />} */}
+                </div>
+                <div className="upload_video_div">
                   <input
                     // ref={inputRef}
                     className="VideoInput_input"
                     type="file"
                     onChange={handleVideoChange}
                     accept=".mov,.mp4"
+                    id="video-file"
                   />
-                  {/* {source && (
-                    <video
-                      className="VideoInput_video"
-                      width="100%"
-                      height="400px"
-                      controls
-                      src={source}
-                    />
-                  )} */}
+                  <label id="video-file-input-label" htmlFor="video-file">
+                    Select video
+                  </label>
                 </div>
-                {/* {source.length > 0 ? (
-                  <div className="post_div">
-                    {source.map((item) => (
-                      <div className="post_sub_div">
-                        <div className="img_div">
-                          <img src={source?.imgUrl} alt="img" />
-                        </div>
-                        <div className="video_div">
-                          <video
-                            className="VideoInput_video"
-                            width="100%"
-                            height="400px"
-                            controls
-                            src={source?.videoUrl}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : null} */}
-
-                {/* <SessionLog/> */}
-
-
+                <button
+                  onClick={handleClick_postFiles}
+                  disabled={imgUrl.length < 1}
+                >
+                  Post
+                </button>
               </div>
+
+              {/* ===file uploaded=== */}
+              {imgUrl.length > 0 ? (
+                <div className="files_uploaded_div">
+                  <div className="post_div">
+                    <textarea
+                      id="img-des"
+                      name="img-des"
+                      placeholder="write about your post..."
+                      rows="2"
+                      cols="30"
+                      value={inputTextarea}
+                      onChange={hanldeChangeTrexarea}
+                    />
+                    {/* <button>Post</button> */}
+                  </div>
+
+                  {imgUrl?.map((img) => (
+                    <img className="uplaoded_img" src={img} alt="" />
+                  ))}
+
+                  {/* ===like/comments=== */}
+                  {/* <div className="like_main_div">
+                    <div className="like_sub_div">
+                      <img className="like" src={likeIcon} alt="like" />
+                      <img
+                        className="dislike"
+                        src={disLikeIcon}
+                        alt="dis-like"
+                      />
+                      <img className="heart" src={heartIcon} alt="heart" />
+                    </div>
+
+                    <div className="comment_div">
+                      <input
+                        type="text"
+                        name="comment"
+                        placeholder="write comments..."
+                      />
+                      <button>
+                        <img src={sendIcon} alt="send" />
+                      </button>
+                    </div>
+                  </div> */}
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
