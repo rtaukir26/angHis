@@ -13,6 +13,9 @@ import likeIcon from "../../assets/images/like2.png";
 import disLikeIcon from "../../assets/images/dislike.png";
 import heartIcon from "../../assets/images/heart.png";
 import sendIcon from "../../assets/images/sendIcon.png";
+import { createPost } from "../../services/dashboard.js";
+import axios from "axios";
+import { apiEndpoints } from "../../services/apiEndPoints";
 
 // import SessionLog from "../../../src/SessionLog";
 // import DiwaliIcon5 from "../../assets/images/diwali5.avif";
@@ -36,7 +39,6 @@ const Home = () => {
   const [imgUrl, setImgUrl] = useState([]);
   const [inputTextarea, setInputTextarea] = useState("");
   const [postData, setPostData] = useState(null);
-  console.log("dd imgUrl", imgUrl);
 
   //imges changes dynamacally, loader
   const callAfterdelay = (i) => {
@@ -68,24 +70,20 @@ const Home = () => {
 
   //file uplaod
   const handleChangeFile = (e) => {
-    let files = e.target.files[0];
-    const url = URL.createObjectURL(files);
-    setImgUrl((pre) => [...pre, url]);
-    // setSource((pre) => {
-    //   return { ...pre,...pre.imgUrl,[pre.imgUrl, url] };
-    // });
-    // let reader = new FileReader();
-    // reader.readAsDataURL(files);
-    // reader.onload = (e) => {
-    //   // this.setstate{image:(e.target.result)}
-    //   setSource(e.target.result);
-    //   /*
-    // const url="http://localhost:3000/api/service";
-    // const formData={file:e.target.result}
-    // return post(url,formData)
-    // .then(response=>console.log(response));
-    // */
-    // };
+    // let files = e.target.files[0];
+    // // const url = URL.createObjectURL(files);
+    // setImgUrl((pre) => [...pre, files]);
+    const files = Array.from(e.target.files);
+    setImgUrl([]);
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setImgUrl((old) => [...old, reader.result]);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
   };
 
   //hanlde change trexarea
@@ -101,10 +99,53 @@ const Home = () => {
   };
 
   //handle click post files
-  const handleClick_postFiles = () => {
-    setPostData({ comments: inputTextarea, imgUrl: imgUrl });
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const myForm = new FormData();
+    myForm.set("postMessage", inputTextarea);
+    imgUrl.forEach((image) => {
+      myForm.append("images", image);
+    });
+    createPost(myForm);
+    console.log("dd myForm", myForm);
+
+    // setPostData({ comments: inputTextarea, imgUrl: imgUrl });
+    // let data = { name: "", comments: inputTextarea, imgUrl: imgUrl[0] };
+    // console.log("data", data);
+
+    // Create a FormData object to send the image and comment
+    // const formData = new FormData();
+    // formData.append("images", image[0]);
+    // formData.append("postMessage", inputTextarea);
+    // try {
+    //   const response = await axios.post(
+    //     apiEndpoints.createPost,
+    //     {
+    //       name: "",
+    //       postMessage: inputTextarea,
+    //       images: {
+    //         public_id: "1",
+    //         url: imgUrl[0],
+    //       },
+    //       file: imgUrl[0],
+    //     },
+    //     {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //       },
+    //     }
+    //   );
+
+    //   console.log("dd response", response.data);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+    // createPost(formData);
+
+    // Reset form
+    // setImage(null);
+    // setInputTextarea("");
   };
-  console.log("dd postdata", postData);
 
   return (
     <section className="super_main_sec">
@@ -150,37 +191,42 @@ const Home = () => {
             <div className="right_body_div">
               {/* ===uplaod image/video=== */}
               <div className="upload_div">
-                <div className="uplaod_image_div">
-                  <input
-                    type="file"
-                    onChange={handleChangeFile}
-                    id="file-input"
-                    name="file-input"
-                  />
+                <form onSubmit={handleSubmit}>
+                  <div className="uplaod_image_div">
+                    <input
+                      type="file"
+                      onChange={handleChangeFile}
+                      id="file-input"
+                      name="file-input"
+                      accept="image/*"
+                      multiple
+                    />
 
-                  <label id="file-input-label" htmlFor="file-input">
-                    Select an Image
-                  </label>
-                </div>
-                <div className="upload_video_div">
-                  <input
-                    // ref={inputRef}
-                    className="VideoInput_input"
-                    type="file"
-                    onChange={handleVideoChange}
-                    accept=".mov,.mp4"
-                    id="video-file"
-                  />
-                  <label id="video-file-input-label" htmlFor="video-file">
-                    Select video
-                  </label>
-                </div>
-                <button
-                  onClick={handleClick_postFiles}
-                  disabled={imgUrl.length < 1}
-                >
-                  Post
-                </button>
+                    <label id="file-input-label" htmlFor="file-input">
+                      Select an Image
+                    </label>
+                  </div>
+                  {/* <div className="upload_video_div">
+                    <input
+                      // ref={inputRef}
+                      className="VideoInput_input"
+                      type="file"
+                      onChange={handleVideoChange}
+                      accept=".mov,.mp4"
+                      id="video-file"
+                    />
+                    <label id="video-file-input-label" htmlFor="video-file">
+                      Select video
+                    </label>
+                  </div> */}
+                  <button
+                    // onClick={handleClick_postFiles}
+                    disabled={imgUrl.length < 1}
+                    type="submit"
+                  >
+                    Post
+                  </button>
+                </form>
               </div>
 
               {/* ===file uploaded=== */}
