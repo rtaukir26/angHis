@@ -1,9 +1,15 @@
 /*common colors*/
 $main-black: #fff;
+$main-white: #000;
 $white-only: #fff;
 $black-only: #000;
+$bg-mode-color: #011616;
+$text-color:#fff;
 
 /*==Header==*/
-$header-bg-color: linear-gradient(45deg, rgb(40 12 72 / 89%), rgb(54 39 94));
-$bg-image:url("../../assets/images/full-moon.png");
-$toggle-bg:linear-gradient(45deg, #ffffff, #ffe6e6);
+$header-bg-color: #113a3a;
+$bg-image: url("../../assets/images/full-moon.png");
+$toggle-bg: linear-gradient(45deg, #ffffff, #ffffff);
+
+/* Side bar */
+$sideBar-bg: #113a3a;

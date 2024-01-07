@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import useIcon from "../../assets/images/user.png";
-// import { ReactComponent as BrandLogo } from "../../assets/images/drupal.svg";
+import { useNavigate } from "react-router-dom";
+import profileIcon from "../../assets/images/profile2.png";
 import BrandLogo from "../../assets/images/brandLogo.png";
-// import sunIcon from "../../assets/images/sun.png";
+import logOutIcon from "../../assets/images/check-out.png";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [themeChange, setThemeChange] = useState(false);
 
   //useffect for checking dark mode
@@ -28,6 +29,10 @@ const Header = () => {
       setThemeChange(!themeChange);
     }
   };
+
+  const handleClickLogout = () => {
+    navigate("/login");
+  };
   return (
     <section>
       <div className="main_header_div">
@@ -38,16 +43,22 @@ const Header = () => {
           </span>
           <span className="brand_name">AngHis</span>
         </div>
-        <div className="middle_header">middle</div>
+
+        <div className="middle_header">
+          <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+
         <div className="right_header">
           <ul>
             <li onClick={handleClick_themeChanging}>
               <div
                 className="toggle_div"
                 title={
-                  themeChange
-                    ? "switch to light theme"
-                    : "switch to dark theme"
+                  themeChange ? "switch to light theme" : "switch to dark theme"
                 }
               >
                 <span
@@ -57,10 +68,25 @@ const Header = () => {
                 ></span>
               </div>
             </li>
-            <li>
-              <img className="user_icon_li" src={useIcon} alt="user" />{" "}
+
+            <li tabIndex="0" className="logout_li">
+              <img className="user_icon_img" src={logOutIcon} alt="logout" />
+
+              <div className="user_details_con">
+                <div className="user_header">
+                  <img src={profileIcon} alt="user icon" />
+                  <div>
+                    <p>Md Tauqueer</p>
+                    <p>Tauqueer@gmail.com</p>
+                  </div>
+                </div>
+                <p className="confirm_text">Are you sure you want to logout?</p>
+                <div className="btn_grp">
+                  <button>No</button>
+                  <button onClick={handleClickLogout}>Yes</button>
+                </div>
+              </div>
             </li>
-            <li>log out</li>
           </ul>
         </div>
       </div>

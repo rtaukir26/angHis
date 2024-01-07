@@ -1,9 +1,17 @@
 /*common colors*/
 $main-black: #000;
+$main-white: #fff;
+
 $white-only: #fff;
 $black-only: #000;
 
+$bg-mode-color: #fff;
+$text-color: #113a3a;
+
 /*==Header==*/
-$header-bg-color: linear-gradient(45deg, rgb(169 134 209 / 89%), rgb(160 150 187));
-$bg-image:url("../../assets/images/sun.png");
-$toggle-bg:linear-gradient(45deg, #ffffff, #ffe6e6);
+$header-bg-color: #fff;
+$bg-image: url("../../assets/images/sun.png");
+$toggle-bg: linear-gradient(45deg, #ffffff, #ffffff);
+
+/* Side bar */
+$sideBar-bg: #113a3a;

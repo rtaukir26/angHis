@@ -1,5 +1,8 @@
 import { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./component/Home/Home";
+import Login from "./pages/Login/Login";
+import routePaths from "./routes/routhPaths";
 
 function App() {
   useEffect(() => {
@@ -20,9 +23,16 @@ function App() {
     // };
   }, []);
   return (
-    <div className="App">
-      <Home />
-    </div>
+    // <div className="App">
+    //   {/* <Home /> */}
+    //   <Login />
+    // </div>
+    <Router>
+      <Routes>
+        <Route exact path={routePaths.root} element={<Home />} />
+        <Route exact path={routePaths.login} element={<Login />} />
+      </Routes>
+    </Router>
   );
 }
 

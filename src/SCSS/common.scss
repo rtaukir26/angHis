@@ -1,11 +1,39 @@
 body {
   transition: 0.3s all ease;
   &.light-theme {
-    // background-image: linear-gradient(45deg, white, #e7e7e7);
-    background-image: url("../assets/images/lightMode2.webp");
+    background-image: linear-gradient(45deg, white, #ffffff);
+    // background-image: url("../assets/images/lightMode2.webp");
   }
   &.dark-theme {
-    background-image: url("../assets/images/darkMode.jpg");
-    // transition: 0.3s all ease;
+    // background-image: url("../assets/images/darkMode.jpg");
+    background-image: linear-gradient(45deg, rgb(32, 32, 32), #252222);
+    transition: 0.3s all ease;
   }
+}
+
+body {
+  font-family: monospace;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f4f4f4;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #c9d8f0;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1b6fee;
 }

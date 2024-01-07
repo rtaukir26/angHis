@@ -1,12 +1,17 @@
 .main_header_div {
+  position: fixed;
   padding: 15px;
   max-height: 60px;
   min-height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-image: $header-bg-color;
+  background: $header-bg-color;
+  box-shadow: 0px 0px 3px $black-only;
   transition: 0.3s all ease;
+  top: 0;
+  left: 0;
+  width: 100%;
   .left_header {
     display: flex;
     justify-content: center;
@@ -18,9 +23,35 @@
       &.brand_name {
         margin-left: 10px;
         font-size: 22px;
+        color: $text-color;
       }
     }
   }
+
+  .middle_header {
+    width: 75%;
+    ul {
+      list-style: none;
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      li {
+        cursor: pointer;
+        font-size: 19px;
+        padding: 5px 10px;
+        color: $text-color;
+        &:not(:last-child) {
+        }
+        &:hover {
+          background: $sideBar-bg;
+          color: $white-only;
+          border-radius: 3px;
+          transition: all 0.3s ease;
+        }
+      }
+    }
+  }
+
   .right_header {
     color: white;
     ul {
@@ -38,7 +69,7 @@
           width: 80px;
           border-radius: 20px;
           position: relative;
-          box-shadow: 0px 0px 10px 4px #7760a1;
+          box-shadow: 0px 0px 5px 0px #7760a1;
           .toggle_ball {
             // background-image: url("../../assets/images/sun.png");
             background-image: $bg-image;
@@ -48,7 +79,6 @@
             height: 26px;
             position: absolute;
             width: 26px;
-            // background: #fbff52;
             border-radius: 50%;
             left: 5px;
             top: 2px;
@@ -57,7 +87,7 @@
               transform: translateX(0px);
               transform: rotate(190deg);
               transition: 0.9s all ease;
-              box-shadow: 0px 0px 10px 1px rgb(67 72 71 / 87%);
+              box-shadow: 0px 0px 5px 0px rgb(67 72 71 / 87%);
               // animation: rotate_moon 4s linear;
               // @keyframes rotate_moon {
               //   from {
@@ -89,8 +119,90 @@
             }
           }
         }
-        .user_icon_li {
+        .user_icon_img {
           width: 30px;
+          cursor: pointer;
+        }
+        &.logout_li {
+          position: relative;
+          cursor: pointer;
+          &:focus div {
+            visibility: visible;
+            opacity: 1;
+          }
+          .user_details_con {
+            position: absolute;
+            background: $main-white;
+            width: 350px;
+            z-index: 1;
+            box-shadow: 0px 0px 4px #113a3a;
+            list-style: none;
+            visibility: hidden;
+            opacity: 0;
+            // visibility: visible;
+            // opacity: 1;
+            transition: 0.3s ease all;
+            right: -12px;
+            top: 41px;
+            border-radius: 3px;
+            padding: 15px;
+            &::before {
+              content: "";
+              position: absolute;
+              top: -11px;
+              right: 19px;
+              border-left: 6px solid transparent;
+              border-right: 6px solid transparent;
+              border-bottom: 8px solid #113a3a;
+            }
+
+            .user_header {
+              display: flex;
+              justify-content: start;
+              align-items: center;
+
+              img {
+                width: 40px;
+              }
+              div {
+                margin-left: 10px;
+                border-left: 1px solid #ddd;
+                padding-left: 10px;
+                p {
+                  color: $main-black;
+                  font-size: 15px;
+                }
+              }
+            }
+            .confirm_text {
+              color: $main-black;
+              font-size: 16px;
+              margin-top: 25px;
+              text-align: center;
+              border-bottom: 1px solid #ddd;
+              padding-bottom: 10px;
+            }
+            .btn_grp {
+              margin-top: 20px;
+              text-align: center;
+              button {
+                width: 100px;
+                margin-right: 10px;
+                padding: 10px;
+                color: $main-black;
+                border: none;
+                border-radius: 20px;
+                cursor: pointer;
+                box-shadow: 0px 1px 3px #113a3a;
+              }
+              button:first-child {
+                background-color: tomato;
+              }
+              button:last-child {
+                background-color: greenyellow;
+              }
+            }
+          }
         }
       }
     }
