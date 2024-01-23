@@ -1,0 +1,30 @@
+.banner_div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  .banner1 {
+    width: 33%;
+    border: 1px solid #ddd;
+    height: 170px;
+    border-radius: 5px;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  .banner_img1 {
+    transition: 0.3s all ease;
+    -webkit-animation: fade_animation 1s linear;
+  }
+  // @keyframes fade_animation {
+  //   from {
+  //     opacity: 0;
+  //     -webkit-transform: scale(0.8, 0.8);
+  //   }
+  //   to {
+  //     opacity: 1;
+  //     transform: scale(1, 1);
+  //   }
+  // }
+}

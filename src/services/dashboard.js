@@ -27,7 +27,6 @@ export const createPost = async (postData) => {
 //Get all post
 export const getAllPostApi = async () => {
   let user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
   try {
     return await axios.get(apiEndpoints.getAllPost, {
       headers: {

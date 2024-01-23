@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./component/Home/Home";
+import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
-import routePaths from "./routes/routhPaths";
+import About from "./pages/About/About";
+import PrivateRoutes from "./routes/PrivateRoutes";
+import routePaths from "./routes/routePaths";
 
 function App() {
   useEffect(() => {
@@ -14,23 +16,19 @@ function App() {
       document.getElementsByTagName("body")[0].classList.remove("dark-theme");
       document.getElementsByTagName("body")[0].classList.add("light-theme");
     }
-    // window.addEventListener("online", triggerOfflineSyncData);
-    // // Checking and updating the expired service sessions and setting timeout for incomplete service sessions
-    // updateExpiredServiceSessions();
-    // // cleanup the event listeners
-    // return () => {
-    //    window.removeEventListener("online", triggerOfflineSyncData);
-    // };
   }, []);
+
   return (
-    // <div className="App">
-    //   {/* <Home /> */}
-    //   <Login />
-    // </div>
     <Router>
       <Routes>
-        <Route exact path={routePaths.root} element={<Home />} />
+        {/* Default Redirect */}
         <Route exact path={routePaths.login} element={<Login />} />
+
+        {/* Protected Routes */}
+        <Route path={routePaths.root} element={<PrivateRoutes />}>
+          <Route exact path={routePaths.home} element={<Home />} />
+          <Route exact path={routePaths.about} element={<About />} />
+        </Route>
       </Routes>
     </Router>
   );

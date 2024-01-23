@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import profileIcon from "../../assets/images/profile2.png";
 import BrandLogo from "../../assets/images/brandLogo.png";
-import logOutIcon from "../../assets/images/check-out.png";
+import chatIcon from "../../assets/images/chat2.png";
+import logOutIcon from "../../assets/images/logout.png";
+import routePaths from "../../routes/routePaths";
+import UserDetails from "./UserDetails";
+import Chat from "../Chat/Chat";
+import { createSocketConnection, socket } from "../../socket";
 
 const Header = () => {
   const navigate = useNavigate();
   const [themeChange, setThemeChange] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [userSocketId, setUserSocketId] = useState("");
 
+  const [allActiveUsers, setAllActiveUsers] = useState([]);
   //useffect for checking dark mode
   useEffect(() => {
     const themeChangeValue = localStorage.getItem("theme-mode");
     setThemeChange(themeChangeValue === "dark-theme");
   }, []);
 
-  //handle click theme changing toggle
+  //handle click toggle - theme
   const handleClick_themeChanging = () => {
     const body = document.getElementsByTagName("body")[0];
     if (themeChange) {
@@ -29,10 +36,27 @@ const Header = () => {
       setThemeChange(!themeChange);
     }
   };
-
   const handleClickLogout = () => {
-    navigate("/login");
+    localStorage.removeItem("user");
+    navigate(routePaths.login);
   };
+
+  const handleOnChatIcon = () => {
+    setIsChatOpen(!isChatOpen);
+    createSocketConnection()
+      .then((socket) => {
+        setUserSocketId(socket.id);
+      })
+      .catch((err) => err);
+  };
+
+  useEffect(() => {
+    socket.on("userOnline", (users) => {
+      setAllActiveUsers(users);
+
+      console.log("users", users);
+    });
+  }, []);
   return (
     <section>
       <div className="main_header_div">
@@ -68,24 +92,28 @@ const Header = () => {
                 ></span>
               </div>
             </li>
+            {/* Chat */}
+            <li className="user_chat_li">
+              <img
+                className="user_icon_img"
+                src={chatIcon}
+                alt="logout"
+                onClick={handleOnChatIcon}
+              />
+
+              {isChatOpen && (
+                <Chat
+                  setIsChatOpen={setIsChatOpen}
+                  userSocketId={userSocketId}
+                  allActiveUsers={allActiveUsers}
+                />
+              )}
+            </li>
 
             <li tabIndex="0" className="logout_li">
               <img className="user_icon_img" src={logOutIcon} alt="logout" />
 
-              <div className="user_details_con">
-                <div className="user_header">
-                  <img src={profileIcon} alt="user icon" />
-                  <div>
-                    <p>Md Tauqueer</p>
-                    <p>Tauqueer@gmail.com</p>
-                  </div>
-                </div>
-                <p className="confirm_text">Are you sure you want to logout?</p>
-                <div className="btn_grp">
-                  <button>No</button>
-                  <button onClick={handleClickLogout}>Yes</button>
-                </div>
-              </div>
+              <UserDetails handleClickLogout={handleClickLogout} />
             </li>
           </ul>
         </div>

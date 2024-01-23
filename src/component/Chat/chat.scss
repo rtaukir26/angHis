@@ -1,0 +1,208 @@
+.chat_con {
+  position: absolute;
+  background: #113a3a;
+  height: calc(100vh - 100px);
+  width: calc(100% - -450px);
+  border-radius: 5px;
+  transform: translate(-85%, 2%);
+  z-index: 1;
+  img {
+    width: 30px;
+    filter: drop-shadow(0px 6px 5px #000);
+  }
+  .chat_header {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 8%;
+    padding: 10px;
+    background-color: #113a3a;
+    &.d_flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .left {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      img {
+        cursor: pointer;
+      }
+      span {
+        font-size: 18px;
+        margin-left: 10px;
+      }
+    }
+    .right {
+      img {
+        width: 25px;
+        margin-left: 20px;
+        cursor: pointer;
+        &#expand {
+          width: 20px;
+        }
+      }
+    }
+  }
+
+  .user_status_con {
+    padding: 5px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #237c7c;
+    span {
+      cursor: pointer;
+      padding: 5px;
+      &.active_class {
+        border-bottom: 1px solid #237c7c;
+      }
+    }
+  }
+  .chat_body {
+    background: #303f3f;
+    height: 82%;
+    overflow: auto;
+    .incoming_message {
+      width: 90%;
+      position: relative;
+      margin-top: 10px;
+      margin-left: 10px;
+      float: left;
+      &:first-child {
+        margin-top: 20px;
+      }
+      .user_icon {
+        position: absolute;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        // border: 3px solid yellow;
+        top: -15px;
+        left: 5px;
+
+        img {
+          width: 20px;
+        }
+      }
+      p {
+        background: #ded3;
+        width: 100%;
+
+        padding: 8px 10px;
+        border-radius: 10px;
+        font-size: 18px;
+      }
+      small {
+        float: right;
+        font-size: 10px;
+      }
+    }
+    .outgoing_message {
+      position: relative;
+      float: right;
+      width: 90%;
+      margin-right: 10px;
+      margin-top: 10px;
+      &:first-child {
+        margin-top: 20px;
+      }
+
+      .user_icon {
+        position: absolute;
+        top: -15px;
+        right: 5px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        // border: 3px solid orange;
+        img {
+          width: 20px;
+        }
+      }
+      p {
+        background: #ded3;
+        width: 100%;
+        margin-right: 10px;
+        padding: 8px 10px;
+        border-radius: 10px;
+        font-size: 18px;
+      }
+      small {
+        float: left;
+        font-size: 10px;
+      }
+    }
+  }
+  .send_div {
+    height: 10%;
+    background: #113a3a;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    input {
+      background-color: #1c5858;
+      border-right: 1px solid #fff;
+      padding: 10px;
+      width: 80%;
+      border: none;
+      outline: none;
+      height: 100%;
+      font-size: 18px;
+      color: $white-only;
+      letter-spacing: 1px;
+      &::placeholder {
+        color: #a8a3a3;
+        letter-spacing: 1px;
+        font-size: 16px;
+      }
+    }
+    .send_btn {
+      width: 20%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      img {
+        width: 35px;
+        filter: drop-shadow(0px 0px 0px red);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        &:hover {
+          transform: scale(1.05, 1.05);
+        }
+      }
+    }
+  }
+
+  .online_user_div {
+    display: flex;
+    align-items: center;
+    margin: 5px 30px 10px;
+    cursor: pointer;
+    div:first-child {
+      display: grid;
+      place-items: center;
+      background-color: $white-only;
+      border-radius: 50%;
+      img {
+        width: 35px;
+      }
+    }
+    div:last-child {
+      position: relative;
+      width: 85%;
+      padding: 10px;
+      p {
+        font-size: 16px;
+        padding: 0px 0px 3px;
+      }
+      small {
+        position: absolute;
+        bottom: 0;
+        font-size: 13px;
+      }
+    }
+  }
+}

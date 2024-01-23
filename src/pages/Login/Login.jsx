@@ -2,7 +2,7 @@ import { useState } from "react";
 import { getUserLogin } from "../../services/dashboard";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import routePaths from "../../routes/routhPaths";
+import routePaths from "../../routes/routePaths";
 
 const Login = () => {
   const history = useNavigate();
@@ -30,7 +30,7 @@ const Login = () => {
         console.log("res", res);
         if (res.data.success === true) {
           localStorage.setItem("user", JSON.stringify(res.data));
-          history(routePaths.root);
+          history(routePaths.home);
         }
       })
       .catch((err) => err);
